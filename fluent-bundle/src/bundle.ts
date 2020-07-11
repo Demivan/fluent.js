@@ -17,12 +17,13 @@ export type FluentVariable = FluentValue | NativeValue;
 export class FluentBundle {
   public locales: Array<string>;
 
-  public _terms: Map<string, Term> = new Map();
-  public _messages: Map<string, Message> = new Map();
   public _functions: Record<string, FluentFunction>;
   public _useIsolating: boolean;
   public _transform: TextTransform;
   public _intls: WeakMap<object, Record<string, object>> = new WeakMap();
+
+  protected _messages: Map<string, Message> = new Map();
+  protected _terms: Map<string, Term> = new Map();
 
   /**
    * Create an instance of `FluentBundle`.
@@ -95,6 +96,10 @@ export class FluentBundle {
    */
   getMessage(id: string): Message | undefined {
     return this._messages.get(id);
+  }
+
+  getTerm(id: string): Term | undefined {
+    return this._terms.get(id);
   }
 
   /**

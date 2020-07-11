@@ -202,7 +202,7 @@ function resolveMessageReference(
   scope: Scope,
   { name, attr }: MessageReference
 ): FluentValue {
-  const message = scope.bundle._messages.get(name);
+  const message = scope.bundle.getMessage(name);
   if (!message) {
     scope.reportError(new ReferenceError(`Unknown message: ${name}`));
     return new FluentNone(name);
@@ -231,7 +231,7 @@ function resolveTermReference(
   { name, attr, args }: TermReference
 ): FluentValue {
   const id = `-${name}`;
-  const term = scope.bundle._terms.get(id);
+  const term = scope.bundle.getTerm(id);
   if (!term) {
     scope.reportError(new ReferenceError(`Unknown term: ${id}`));
     return new FluentNone(id);
